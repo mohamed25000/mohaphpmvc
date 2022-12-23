@@ -104,4 +104,72 @@ class Arr
         }
     }
 
+    public function except($array, $keys)
+    {
+        return static::forget($array, $keys);
+    }
+
+    public static function flatten($array, $depth = INF)
+    {
+        $result = [];
+        foreach ($array as $item) {
+            if(!is_array($item)) {
+                $result[] = $item;
+            } elseif( $depth === 1){
+                $result = array_merge($result, array_values($item));
+            } else {
+                $result = array_merge($result, static::flatten($item, $depth - 1));
+            }
+        }
+        return $result;
+    }
+
+    public static function get($array, $key, $default)
+    {
+        if(!static::accessible($array)) {
+            return value($default);
+        }
+
+        if(is_null($key)) {
+            return $array;
+        }
+
+        if(static::exists($array, $key)) {
+            return $array[$key];
+        }
+
+        if (!str_contains($key, '.')) {
+            return $array[$key] ?? value($default);
+        }
+
+        foreach (explode('.', $key) as $segment) {
+            if(static::accessible($array, $key) && static::exists($array, $segment)) {
+                $array = $array[$segment];
+            } else {
+                return value($default);
+            }
+        }
+        return $array;
+    }
+
+    public static function set(&$array, $key, $value)
+    {
+        if(is_null($key)) {
+            return array_push($array, $value);
+        }
+
+        $keys = explode('.', $key);
+        while(count($keys > 1)) {
+            $key = array_shift($keys);
+            $array = &$array[$key];
+        }
+        $array[array_shift($keys)] = $value;
+        return $array;
+    }
+
+    public static function unset($array, $key)
+    {
+        static::set($array, $key, null);
+    }
+
 }

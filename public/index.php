@@ -21,4 +21,10 @@ app()->run();
 /*var_dump(Arr::last(["one", "two", "three"], function ($item) {
     return (strlen($item) > 3);
 }));*/
+/*echo "<pre>";
+var_dump(Arr::flatten(['1', [2, 5 ,[4, 6]]]));
+echo "</pre>";*/
+
+
+
 
