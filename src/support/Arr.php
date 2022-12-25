@@ -159,7 +159,7 @@ class Arr
         }
 
         $keys = explode('.', $key);
-        while(count($keys > 1)) {
+        while(count($keys) > 1 ) {
             $key = array_shift($keys);
             $array = &$array[$key];
         }

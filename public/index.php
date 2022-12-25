@@ -6,6 +6,7 @@ use Sectheater\http\Request;
 use Sectheater\http\Response;
 use Sectheater\http\Router;
 use Sectheater\support\Arr;
+use Sectheater\support\Config;
 
 require_once __DIR__ . "/../src/support/helpers.php";
 require_once base_path() . "/vendor/autoload.php";
@@ -16,15 +17,4 @@ $env->load();
 
 app()->run();
 
-//var_dump(Arr::only(['username' => 'mohamed', 'email' => 'mohamed'], ['email', 'username']));
-//var_dump(Arr::has(['db' => ['connection' => ['default' => 'nosql']]], 'db.connection.default'));
-/*var_dump(Arr::last(["one", "two", "three"], function ($item) {
-    return (strlen($item) > 3);
-}));*/
-/*echo "<pre>";
-var_dump(Arr::flatten(['1', [2, 5 ,[4, 6]]]));
-echo "</pre>";*/
-
-
-
-
+var_dump(config('database.default'));

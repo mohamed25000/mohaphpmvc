@@ -29,6 +29,12 @@ if(!function_exists('view_path')) {
     }
 }
 
+if(!function_exists('config_path')) {
+    function config_path(){
+        return base_path() . 'config/';
+    }
+}
+
 if(!function_exists('view')) {
     function view($view, $params = []) {
         View::make($view, $params);
@@ -42,5 +48,17 @@ if(!function_exists('app')) {
             $instance = new Application();
         }
         return $instance;
+    }
+}
+
+if (!function_exists('config')) {
+    function config($key = null, $default = null) {
+        if (is_numeric($key)) {
+            return app()->config;
+        }
+        if(is_array($key)) {
+            return app()->config->set($key);
+        }
+        return app()->config->get($key, $default);
     }
 }
