@@ -7,6 +7,7 @@ use Sectheater\http\Response;
 use Sectheater\http\Router;
 use Sectheater\support\Arr;
 use Sectheater\support\Config;
+use Sectheater\support\Hash;
 
 require_once __DIR__ . "/../src/support/helpers.php";
 require_once base_path() . "/vendor/autoload.php";
@@ -17,4 +18,4 @@ $env->load();
 
 app()->run();
 
-var_dump(config('database.default'));
+
