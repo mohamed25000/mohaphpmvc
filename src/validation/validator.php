@@ -2,12 +2,19 @@
 
 namespace Sectheater\validation;
 
+use Sectheater\validation\rules\AlnumRule;
+use Sectheater\validation\rules\RequiredRule;
+
 class validator
 {
     protected array $data = [];
     protected array $rules = [];
     protected array $aliases = [];
     protected ErrorBag $errorBag;
+    protected array $ruleMap = [
+        'required' => RequiredRule::class,
+        'alnum' => AlnumRule::class,
+    ];
 
     public function make($data)
     {
@@ -20,6 +27,9 @@ class validator
     {
         foreach($this->rules as $field => $rules) {
             foreach ($rules as $rule) {
+                if(is_string($rule)){
+                    $rule = new $this->ruleMap[$rule];
+                }
                 if(!$rule->apply($field, $this->getFieldValue($field), $this->data)) {
                     $this->errorBag->add($field, Message::generate($rule, $field));
                 }

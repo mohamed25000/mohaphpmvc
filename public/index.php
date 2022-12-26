@@ -8,6 +8,7 @@ use Sectheater\http\Router;
 use Sectheater\support\Arr;
 use Sectheater\support\Config;
 use Sectheater\support\Hash;
+use Sectheater\validation\rules\AlnumRule;
 use Sectheater\validation\rules\RequiredRule;
 use Sectheater\validation\validator;
 
@@ -23,7 +24,7 @@ app()->run();
 $validator = new Validator();
 
 $validator->setRules([
-    'username' => [new RequiredRule],
+    'username' => [new RequiredRule, new AlnumRule()],
     'email' => [new RequiredRule],
 ]);
 
