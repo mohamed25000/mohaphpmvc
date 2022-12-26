@@ -8,6 +8,8 @@ use Sectheater\http\Router;
 use Sectheater\support\Arr;
 use Sectheater\support\Config;
 use Sectheater\support\Hash;
+use Sectheater\validation\rules\RequiredRule;
+use Sectheater\validation\validator;
 
 require_once __DIR__ . "/../src/support/helpers.php";
 require_once base_path() . "/vendor/autoload.php";
@@ -18,4 +20,17 @@ $env->load();
 
 app()->run();
 
+$validator = new Validator();
 
+$validator->setRules([
+    'username' => [new RequiredRule],
+    'email' => [new RequiredRule],
+]);
+
+$validator->make([
+    'username' => '',
+    'email' => 'mohamed@gmail.com',
+]);
+
+
+var_dump($validator->errors());
